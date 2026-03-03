@@ -5,14 +5,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Carrinho de compras</title>
+    <title>GlamStore — Carrinho de compras</title>
 </head>
 
 <body>
-    <div class="container" id="listaProdutos"></div>
-    <button class="exibirProdutos" onclick="exibirProdutos()">Exibir produtos</button>
-    <h2>Carrinho</h2>
-    <div id="carrinho"></div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-top">✦ frete grátis acima de R$199 ✦ &nbsp;&nbsp;|&nbsp;&nbsp; novidades toda semana ✦</div>
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-star">✦</span>
+                <span class="logo-text">glam<strong>store</strong></span>
+            </div>
+            <nav class="header-nav">
+                <a href="#">Início</a>
+                <a href="#">Produtos</a>
+                <a href="#">Sobre</a>
+                <a href="#">Contato</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main>
+        <section class="produtos-section">
+            <div class="section-header">
+                <h1>Nossos Produtos</h1>
+                <p class="section-sub">Beleza que brilha em você</p>
+            </div>
+            <div class="container" id="listaProdutos"></div>
+            <div class="btn-center">
+                <button class="exibirProdutos" onclick="exibirProdutos()">Ver produtos</button>
+            </div>
+        </section>
+
+        <section class="carrinho-section">
+            <div class="section-header">
+                <h2>Seu Carrinho</h2>
+            </div>
+            <div id="carrinho"></div>
+            <div class="btn-center">
+                <button class="verCarrinho" onclick="verCarrinho()">Atualizar carrinho</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="logo">
+                    <span class="logo-star">✦</span>
+                    <span class="logo-text">glam<strong>store</strong></span>
+                </div>
+                <p>Beleza e estilo para o seu dia a dia.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navegação</h4>
+                <a href="#">Início</a>
+                <a href="#">Produtos</a>
+                <a href="#">Trocas e devoluções</a>
+                <a href="#">Política de privacidade</a>
+            </div>
+            <div class="footer-links">
+                <h4>Contato</h4>
+                <a href="#">contato@glamstore.com</a>
+                <a href="#">Instagram</a>
+                <a href="#">WhatsApp</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 GlamStore. Todos os direitos reservados.</p>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>

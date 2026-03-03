@@ -1,8 +1,8 @@
 //produtos
 let produtosDisponiveis = [
-    { id: 1, nome: "Blush", preco: 99 },
-    { id: 2, nome: "Corretivo", preco: 194 },
-    { id: 3, nome: "Gloss", preco: 59.90 }
+    { id: 1, nome: "Blush", preco: 99, imagem: "img/blush.jpg" },
+    { id: 2, nome: "Corretivo", preco: 194, imagem: "img/corretivo.jpg" },
+    { id: 3, nome: "Gloss", preco: 59.90, imagem: "img/gloss.jpg" }
 ];
 
 //mostra produtos
@@ -17,6 +17,7 @@ function exibirProdutos() {
         const card = document.createElement("div");
 
         card.innerHTML = `
+            <img src="${produto.imagem}" alt="${produto.nome}" width="150">
             <h3>${produto.nome}</h3>
             <p>R$ ${produto.preco}</p>
             <button onclick="adicionarCarrinho(${produto.id})">
@@ -25,9 +26,9 @@ function exibirProdutos() {
         `;
 
         container.appendChild(card);
+
     });
 }
-
 
 //salva carrinho
 function getCarrinho() {
@@ -41,7 +42,6 @@ function getCarrinho() {
     return JSON.parse(dados);
 }
 
-
 //adiciona produtos no carrinho
 function adicionarCarrinho(id) {
 
@@ -54,11 +54,8 @@ function adicionarCarrinho(id) {
     const itemExistente = carrinho.find(p => p.id === id);
 
     if (itemExistente) {
-
         itemExistente.quantidade++;
-
     } else {
-
         carrinho.push({
             id: produto.id,
             nome: produto.nome,
@@ -69,9 +66,11 @@ function adicionarCarrinho(id) {
 
     localStorage.setItem("carrinho", JSON.stringify(carrinho));
 
-    console.log("Produto adicionado:", carrinho);
+    exibirCarrinho();
+
 }
 
+//mostra carrinho
 function exibirCarrinho() {
 
     const container = document.getElementById("carrinho");
@@ -96,9 +95,73 @@ function exibirCarrinho() {
 
         div.innerHTML = `
             <p>${item.nome}</p>
-            <p>Qtd: ${item.quantidade}</p>
+            <p>Quantidade: ${item.quantidade}</p>
+            <button onclick="removerItem(${item.id})">-</button>
+            <button onclick="adicionarItem(${item.id})">+</button>
         `;
 
         container.appendChild(div);
     });
+
+    const total = calcularTotal();
+
+    const totalDiv = document.createElement("h3");
+    totalDiv.textContent = `Total: R$ ${total.toFixed(2)}`;
+
+    container.appendChild(totalDiv);
+}
+
+//visualizar carrinho
+function verCarrinho() {
+    exibirCarrinho();
+}
+
+//adicionar mais um produto pelo carrinho
+function adicionarItem(id) {
+
+    let carrinho = getCarrinho();
+
+    const item = carrinho.find(p => p.id === id);
+
+    if (item) {
+        item.quantidade++;
+    }
+
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+    exibirCarrinho();
+}
+
+//remover um item do carrinho
+function removerItem(id) {
+
+    let carrinho = getCarrinho();
+
+    const item = carrinho.find(p => p.id === id);
+
+    if (item) {
+        item.quantidade--;
+
+        if (item.quantidade <= 0) {
+            carrinho = carrinho.filter(p => p.id !== id);
+        }
+    }
+
+    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+
+    exibirCarrinho();
+}
+
+//total do carrinho
+function calcularTotal() {
+
+    const carrinho = getCarrinho();
+
+    let total = 0;
+
+    carrinho.forEach(item => {
+        total += item.preco * item.quantidade;
+    });
+
+    return total;
 }
